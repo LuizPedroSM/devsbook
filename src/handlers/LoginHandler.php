@@ -5,7 +5,7 @@ use \src\models\User;
 
 class LoginHandler {
 
-    public static function checkLogin()
+    public static function checkLogin(): ?User
     {
         if (!empty($_SESSION['token'])) {
             $token = $_SESSION['token'];
@@ -21,6 +21,24 @@ class LoginHandler {
                 return $loggedUser;
             }
         }
-        return false;
+        return null;
+    }
+
+    public static function verfifyLogin(string $email, string $password): ?string
+    {
+        $user = User::select()->where('email', $email)->one();
+
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                $token = md5(time().rand(0,9999));
+                User::update()
+                    ->set('token', $token)
+                    ->where('email', $email)
+                ->execute();
+                
+                return $token;
+            }
+        }        
+        return null;
     }
 }
