@@ -9,9 +9,22 @@
         <div class="row">
             <div class="column pr-5">
 
-                <?=$render('feed-editor', ['user' => $loggedUser]);?>
+                <?=$render('feed-editor', ['loggedUser' => $loggedUser]);?>
 
-                <?=$render('feed-item', ['user' => $loggedUser]);?>
+                <?php foreach($feed['posts'] as $feeditem):?>
+                <?=$render('feed-item', [
+                    'data' => $feeditem,
+                    'loggedUser' => $loggedUser
+                ]);?>
+                <?php endforeach;?>
+
+                <div class="feed-pagination">
+                    <?php for ($q=0; $q < $feed['pageCount']; $q++):?>
+                    <a class="<?=($q == $feed['currentPage'] ? 'active' : '');?>" href="<?=$base;?>/?page=<?=$q;?>">
+                        <?=$q+1;?>
+                    </a>
+                    <?php endfor;?>
+                </div>
             </div>
             <div class="column side pl-5">
                 <div class="box banners">
