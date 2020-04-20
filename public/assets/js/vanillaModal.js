@@ -19,10 +19,10 @@ var VanillaModal = (function () {
       modal: ".modal",
       modalInner: ".modal-inner",
       modalContent: ".modal-content",
-      open: "[rel=\"modal:open\"]",
-      close: "[rel=\"modal:close\"]",
+      open: '[rel="modal:open"]',
+      close: '[rel="modal:close"]',
       page: "body",
-      "class": "modal-visible",
+      class: "modal-visible",
       loadClass: "vanilla-modal",
       clickOutside: true,
       closeKey: 27,
@@ -53,7 +53,6 @@ var VanillaModal = (function () {
 
   _prototypeProperties(VanillaModal, null, {
     _applyUserSettings: {
-
       /**
        * @param {Object} userSettings
        */
@@ -91,7 +90,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _getNode: {
-
       /**
        * @param {String} selector
        * @param {Node} parent
@@ -131,7 +129,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _addClass: {
-
       /**
        * @param {Node} el
        * @param {String} className
@@ -149,7 +146,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _removeClass: {
-
       /**
        * @param {Node} el
        * @param {String} className
@@ -184,7 +180,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _getElementContext: {
-
       /**
        * @param {mixed} e
        */
@@ -202,14 +197,15 @@ var VanillaModal = (function () {
       configurable: true
     },
     _open: {
-
       /**
        * @param {Event} e
        */
       value: function Open(e) {
         this.current = this._getElementContext(e);
-        if (this.current instanceof HTMLElement === false) return console.error("VanillaModal target must exist on page.");
-        if (typeof this.$$.onBeforeOpen === "function") this.$$.onBeforeOpen.call(this);
+        if (this.current instanceof HTMLElement === false)
+          return console.error("VanillaModal target must exist on page.");
+        if (typeof this.$$.onBeforeOpen === "function")
+          this.$$.onBeforeOpen.call(this);
         this._captureNode();
         this._addClass(this.$.page, this.$$["class"]);
         this._setOpenId();
@@ -221,12 +217,12 @@ var VanillaModal = (function () {
       configurable: true
     },
     _close: {
-
       /**
        * @param {Event} e
        */
       value: function Close(e) {
-        if (typeof this.$$.onBeforeClose === "function") this.$$.onBeforeClose.call(this);
+        if (typeof this.$$.onBeforeClose === "function")
+          this.$$.onBeforeClose.call(this);
         this._removeClass(this.$.page, this.$$["class"]);
         if (this.$$.transitions && this.$$.transitionEnd) {
           this._closeModalWithTransition();
@@ -252,11 +248,17 @@ var VanillaModal = (function () {
     },
     _closeModalWithTransition: {
       value: function CloseModalWithTransition() {
-        var _closeTransitionHandler = (function () {
-          this.$.modal.removeEventListener(this.$$.transitionEnd, _closeTransitionHandler);
+        var _closeTransitionHandler = function () {
+          this.$.modal.removeEventListener(
+            this.$$.transitionEnd,
+            _closeTransitionHandler
+          );
           this._closeModal();
-        }).bind(this);
-        this.$.modal.addEventListener(this.$$.transitionEnd, _closeTransitionHandler);
+        }.bind(this);
+        this.$.modal.addEventListener(
+          this.$$.transitionEnd,
+          _closeTransitionHandler
+        );
       },
       writable: true,
       enumerable: true,
@@ -283,7 +285,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _closeKeyHandler: {
-
       /**
        * @param {Event} e
        */
@@ -299,7 +300,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _outsideClickHandler: {
-
       /**
        * @param {Event} e
        */
@@ -317,14 +317,15 @@ var VanillaModal = (function () {
       configurable: true
     },
     _matches: {
-
       /**
        * @param {Event} e
        * @param {String} selector
        */
       value: function Matches(e, selector) {
         var el = e.target;
-        var matches = (el.document || el.ownerDocument).querySelectorAll(selector);
+        var matches = (el.document || el.ownerDocument).querySelectorAll(
+          selector
+        );
         for (var i = 0; i < matches.length; i++) {
           var child = el;
           while (child !== document.body) {
@@ -339,7 +340,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _delegateOpen: {
-
       /**
        * @param {Event} e
        */
@@ -355,7 +355,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _delegateClose: {
-
       /**
        * @param {Event} e
        */
@@ -370,7 +369,6 @@ var VanillaModal = (function () {
       configurable: true
     },
     _events: {
-
       /**
        * @private {Function} add
        */
@@ -419,5 +417,3 @@ var VanillaModal = (function () {
     window.VanillaModal = VanillaModal;
   }
 })();
-
-var modal = new VanillaModal();

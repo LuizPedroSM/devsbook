@@ -11,12 +11,12 @@ class LoginHandler {
             $token = $_SESSION['token'];
 
             $data = User::select()->where('token', $token)->one();
-                    
+               
             if (count(array($data)) > 0) {
                 $loggedUser = new User();
                 $loggedUser->id = $data['id'];
-                $loggedUser->email = $data['email'];
                 $loggedUser->name = $data['name'];
+                $loggedUser->avatar = $data['avatar'];
 
                 return $loggedUser;
             }
