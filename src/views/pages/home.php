@@ -1,4 +1,4 @@
-<?=$render('header',['loggedUser' => $loggedUser]);?>
+<?=$render('header', ['loggedUser' => $loggedUser]);?>
 
 <section class="container main">
 
@@ -9,9 +9,9 @@
         <div class="row">
             <div class="column pr-5">
 
-                <?=$render('feed-editor');?>
+                <?=$render('feed-editor', ['user' => $loggedUser]);?>
 
-                <?=$render('feed-item');?>
+                <?=$render('feed-item', ['user' => $loggedUser]);?>
             </div>
             <div class="column side pl-5">
                 <div class="box banners">
