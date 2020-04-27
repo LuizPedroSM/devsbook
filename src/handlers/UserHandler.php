@@ -32,7 +32,7 @@ class UserHandler {
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
-                $token = UserHandler::tokenGenerator(); 
+                $token = self::tokenGenerator(); 
                 User::update()
                     ->set('token', $token)
                     ->where('email', $email)
@@ -78,7 +78,7 @@ class UserHandler {
                 //followers
                 $followers = UserRelation::select()->where('user_to', $id)->get();
                 foreach ($followers as $follower) {
-                    $userData = User::select()->where('id', $follower['user_from'])->one;
+                    $userData = User::select()->where('id', $follower['user_from'])->one();
                     
                     $newUser = new User();
                     $newUser->id = $userData['id'];
@@ -91,7 +91,7 @@ class UserHandler {
                 //following
                 $following = UserRelation::select()->where('user_from', $id)->get();
                 foreach ($following as $follower) {
-                    $userData = User::select()->where('id', $follower['user_to'])->one;
+                    $userData = User::select()->where('id', $follower['user_to'])->one();
                     
                     $newUser = new User();
                     $newUser->id = $userData['id'];
@@ -112,7 +112,7 @@ class UserHandler {
     public static function addUser($name, $email, $password, $birthdate): string
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $token = UserHandler::tokenGenerator();      
+        $token = self::tokenGenerator();      
             
         User::insert([
             'email' => $email,
@@ -130,5 +130,31 @@ class UserHandler {
     public static function tokenGenerator()
     {
         return md5(time().rand(0,9999)).time();
+    }
+
+    public static function isFollowing(int $from, int $to): bool
+    {
+        $data = UserRelation::select()
+            ->where('user_from', $from)
+            ->where('user_to', $to)
+        ->one();
+
+        return $data? true : false;
+    }
+
+    public function follow(int $from, int $to)
+    {
+        UserRelation::insert([
+            'user_from' => $from,
+            'user_to' => $to,
+        ])->execute();
+    }
+
+    public function unfollow(int $from, int $to)
+    {
+        UserRelation::delete()
+            ->where('user_from', $from)
+            ->where('user_to', $to)
+        ->execute();
     }
 }

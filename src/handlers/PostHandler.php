@@ -63,7 +63,7 @@ class PostHandler {
         
         $users = [$idUser];
         foreach ($userList as $userItem) {
-            $user[] = $userItem['user_to'];
+            $users[] = $userItem['user_to'];
         }
         // 2. Pegar os posts dessa galera ordenado pela data.
         $postList = Post::select()
