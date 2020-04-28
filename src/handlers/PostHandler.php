@@ -55,7 +55,7 @@ class PostHandler {
 
     public static function getHomeFeed(int $idUser,int $page)
     {
-        $perPage = 2;
+        $perPage = 10;
         // 1. Pegar lista de usuários que EU sigo.
         $userList = UserRelation::select()
             ->where('user_from', $idUser)
@@ -91,7 +91,7 @@ class PostHandler {
 
     public static  function getUserFeed(int $idUser, int $page, int $loggedUserId)
     {
-        $perPage = 2;
+        $perPage = 10;
         
         // 2. Pegar os posts dessa galera ordenado pela data.
         $postList = Post::select()

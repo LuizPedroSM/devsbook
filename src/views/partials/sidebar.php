@@ -28,9 +28,9 @@
                 <div class="menu-item-text">
                     Amigos
                 </div>
-                <div class="menu-item-badge">
+                <!-- <div class="menu-item-badge">
                     33
-                </div>
+                </div> -->
             </div>
         </a>
         <a href="<?=$base;?>/photos">

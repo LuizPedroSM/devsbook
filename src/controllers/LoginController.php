@@ -6,7 +6,6 @@ use \src\handlers\UserHandler;
 
 class LoginController extends Controller
 {
-
     public function signin()
     {
         $flash = '';
