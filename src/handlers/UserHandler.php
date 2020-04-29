@@ -64,6 +64,7 @@ class UserHandler {
             $user = new User();
             $user->id = $data['id'];
             $user->name = $data['name'];
+            $user->email = $data['email'];
             $user->birthdate = $data['birthdate'];
             $user->city = $data['city'];
             $user->work = $data['work'];
@@ -125,6 +126,19 @@ class UserHandler {
         ])->execute();
         
         return $token;
+    }
+
+    public static function updateUser(User $user)
+    {     
+        User::update()
+                ->set('email', $user->email)
+                ->set('password', $user->password)
+                ->set('name', $user->name)
+                ->set('birthdate', $user->birthdate)
+                ->set('city', $user->city)
+                ->set('work', $user->work)
+                ->where('id', $user->id)
+            ->execute();
     }
 
     public static function tokenGenerator()

@@ -28,4 +28,5 @@ $router->get('/photos', 'ProfileController@photos');
 
 $router->get('/search', 'SearchController@index');
 
-// $router->get('/settings', '');
+$router->get('/settings', 'SettingController@index');
+$router->post('/settings', 'SettingController@update');

@@ -429,6 +429,14 @@ header .head-side {
   background-color: #477dbb;
 }
 
+.flash {
+  border: 2px solid red;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 992px) {
   header .head-side-right {
     display: none !important;
