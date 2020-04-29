@@ -26,5 +26,6 @@ $router->get('/friends', 'ProfileController@friends');
 
 $router->get('/photos', 'ProfileController@photos');
 
-// $router->get('/search', '');
+$router->get('/search', 'SearchController@index');
+
 // $router->get('/settings', '');

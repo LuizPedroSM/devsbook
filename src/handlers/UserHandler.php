@@ -142,7 +142,7 @@ class UserHandler {
         return $data? true : false;
     }
 
-    public function follow(int $from, int $to)
+    public static function follow(int $from, int $to)
     {
         UserRelation::insert([
             'user_from' => $from,
@@ -150,11 +150,27 @@ class UserHandler {
         ])->execute();
     }
 
-    public function unfollow(int $from, int $to)
+    public static function unfollow(int $from, int $to)
     {
         UserRelation::delete()
             ->where('user_from', $from)
             ->where('user_to', $to)
         ->execute();
+    }
+
+    public static function searchUser(string $term): ?array
+    {
+        $data = User::select()->where('name', 'like', '%'.$term.'%')->get();
+        if ($data) {
+            foreach ($data as $user) {
+                $newUser = new User();
+                $newUser->id = $user['id'];
+                $newUser->name = $user['name'];
+                $newUser->avatar = $user['avatar'];
+                
+                $users[] = $newUser;
+            }
+        }
+        return $users ?? [];
     }
 }
