@@ -2,6 +2,7 @@
 namespace src\handlers;
 
 use \src\models\Post;
+use \src\models\PostLike;
 use \src\models\User;
 use \src\models\UserRelation;
 
@@ -43,14 +44,42 @@ class PostHandler {
             $newPost->user->avatar = $newUser['avatar'];
             
             // TODO: 4.1 preencher as informações de LIKE
-            $newPost->likeCount = 0;
-            $newPost->liked = false;
+            $likes = PostLike::select()->where('id_post', $postItem['id'])->get();
+            $newPost->likeCount = count($likes);
+            $newPost->liked = self::isLiked($postItem['id'], $loggedUserId);
             // TODO: 4.2 preencher as informações de COMMENTS
             $newPost->comments = [];
 
             $posts[] = $newPost;
         }
         return $posts;
+    }
+
+    public static function isLiked($postId, $loggedUserId)
+    {
+        $myLike = PostLike::select()
+        ->where('id_post', $postId)
+        ->where('id_user', $loggedUserId)
+        ->get();
+        
+        return (count($myLike) > 0)? true : false;
+    }
+
+    public static function deleteLike($postId, $loggedUserId)
+    {
+        PostLike::delete()
+            ->where('id_post',$postId)
+            ->where('id_user',$loggedUserId)
+        ->execute();
+
+    }
+    public static function addLike($postId, $loggedUserId)
+    {
+        PostLike::insert([
+            'id_post' => $postId,
+            'id_user' => $loggedUserId,
+            'created_at' => date('Y-m-d H:i:s')
+        ])->execute();
     }
 
     public static function getHomeFeed(int $idUser,int $page)

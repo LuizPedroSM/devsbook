@@ -30,3 +30,5 @@ $router->get('/search', 'SearchController@index');
 
 $router->get('/settings', 'SettingController@index');
 $router->post('/settings', 'SettingController@update');
+
+$router->get('/ajax/like/{id}', 'AjaxController@like');
