@@ -10,14 +10,17 @@
                 <?php if(!empty($flash)):?>
                 <div class="flash"><?=$flash?></div>
                 <?php endif;?>
-                <form method="POST" action="<?=$base;?>/settings">
+                <form class="config-form" method="POST" action="<?=$base;?>/settings" enctype="multipart/form-data">
                     <label for="avatar">
                         Novo Avatar: <br>
                         <input type="file" name="avatar" id="avatar">
+                        <img class="image-edit" src="<?=$base;?>/media/avatars/<?=$user->avatar;?>" alt="avatar">
+
                     </label><br>
-                    <label for="capa">
+                    <label for="cover">
                         Nova Capa: <br>
-                        <input type="file" name="capa" id="capa">
+                        <input type="file" name="cover" id="cover">
+                        <img class="image-edit" src="<?=$base;?>/media/covers/<?=$user->cover;?>" alt="cover">
                     </label><br>
 
                     <hr />

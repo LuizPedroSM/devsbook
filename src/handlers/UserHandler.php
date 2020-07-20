@@ -137,6 +137,8 @@ class UserHandler {
                 ->set('birthdate', $user->birthdate)
                 ->set('city', $user->city)
                 ->set('work', $user->work)
+                ->set('avatar', $user->avatar)
+                ->set('cover', $user->cover)
                 ->where('id', $user->id)
             ->execute();
     }
