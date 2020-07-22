@@ -54,7 +54,7 @@ document
 
 if (document.querySelector(".like-btn")) {
   document.querySelectorAll(".like-btn").forEach(item => {
-    item.addEventListener("click", () => {
+    item.addEventListener("click", async () => {
       let id = item.closest(".feed-item").getAttribute("data-id");
       let count = parseInt(item.innerText);
       if (item.classList.contains("on") === false) {
@@ -65,7 +65,48 @@ if (document.querySelector(".like-btn")) {
         item.innerText = --count;
       }
 
-      fetch(BASE + "/ajax/like/" + id);
+      await fetch(BASE + "/ajax/like/" + id);
+    });
+  });
+}
+
+if (document.querySelector(".fic-item-field")) {
+  document.querySelectorAll(".fic-item-field").forEach(item => {
+    item.addEventListener("keyup", async e => {
+      if (e.keyCode == 13) {
+        let id = item.closest(".feed-item").getAttribute("data-id");
+        let txt = item.value;
+        item.value = "";
+        let data = new FormData();
+        data.append("id", id);
+        data.append("txt", txt);
+        let req = await fetch(BASE + "/ajax/comment", {
+          method: "POST",
+          body: data
+        });
+        let json = await req.json();
+        if (json.error == "") {
+          let html = '<div class="fic-item row m-height-10 m-width-20">';
+          html += '<div class="fic-item-photo">';
+          html +=
+            '<a href="' +
+            BASE +
+            json.link +
+            '"><img src="' +
+            BASE +
+            json.avatar +
+            '" /></a>';
+          html += "</div>";
+          html += '<div class="fic-item-info">';
+          html += '<a href="' + BASE + json.link + '">' + json.name + "</a>";
+          html += json.body;
+          html += "</div>";
+          html += "</div>";
+          item
+            .closest(".feed-item")
+            .querySelector(".feed-item-comments-area").innerHTML += html;
+        }
+      }
     });
   });
 }

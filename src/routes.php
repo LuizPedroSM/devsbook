@@ -32,3 +32,4 @@ $router->get('/settings', 'SettingController@index');
 $router->post('/settings', 'SettingController@update');
 
 $router->get('/ajax/like/{id}', 'AjaxController@like');
+$router->post('/ajax/comment', 'AjaxController@comment');
