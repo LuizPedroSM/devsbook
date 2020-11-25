@@ -232,13 +232,20 @@ header .head-side {
   display: none;
   color: #333;
 }
+.feed-new-photo,
 .feed-new-send {
   cursor: pointer;
   margin-right: 5px;
 }
+.feed-new-photo img,
 .feed-new-send img {
   width: 25px;
   height: 25px;
+}
+.feed-new-file {
+  position: absolute;
+  left: -500px;
+  top: -500px;
 }
 
 .banners .box-body {

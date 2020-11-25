@@ -1,4 +1,5 @@
 <?php
+
 use core\Router;
 
 $router = new Router();
@@ -33,3 +34,5 @@ $router->post('/settings', 'SettingController@update');
 
 $router->get('/ajax/like/{id}', 'AjaxController@like');
 $router->post('/ajax/comment', 'AjaxController@comment');
+
+$router->post('/ajax/upload', 'AjaxController@upload');
