@@ -7,10 +7,9 @@
                 </a>
             </div>
             <div class="feed-item-head-info">
-                <a href="<?= $base ?>/profile/<?= $data->user->id ?>">
-                    <span class="fidi-name"><?= $data->user->name; ?></span>
-                </a>
-                <span class="fidi-action">
+                <a href="<?= $base ?>/profile/<?= $data->user->id ?>"><span
+                        class="feed-name"><?= $data->user->name; ?></span></a>
+                <span class="feed-action">
                     <?php
                     switch ($data->type) {
                         case 'text':
@@ -20,14 +19,18 @@
                             echo "Postou uma foto";
                             break;
                     }
-                    ?>
-                </span>
+                    ?></span>
                 <br />
-                <span class="fidi-date"><?= date('d/m/Y H:i:s', strtotime($data->created_at)); ?></span>
+                <span class="feed-date"><?= date('d/m/Y H:i:s', strtotime($data->created_at)); ?></span>
             </div>
+            <?php if ($data->mine) : ?>
             <div class="feed-item-head-btn">
                 <img src="<?= $base; ?>/assets/images/more.png" />
+                <div class="feed-item-more-window">
+                    <a href="<?=$base?>/post/<?=$data->id?>/delete">Excluir Post</a>
+                </div>
             </div>
+            <?php endif; ?>
         </div>
         <div class="feed-item-body mt-10 m-width-20">
             <?php
